@@ -10,13 +10,13 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 
 
 ## Index
-### [Bailout reasons](#bailout-reasons)
+### [Bailout reasons](#bailout-reasons-1)
 
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
 
-### [Misc](#misc)
+### [Misc](#misc-1)
 
 * [Resources](#resources)
 * [Template](#template)
