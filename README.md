@@ -97,3 +97,204 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 
 * External examples
   - [example](http://example.com)
+
+
+### All bailout reasons
+
+- 32 bit value in register is not zero-extended
+- Alignment marker expected
+- Allocation is not double aligned
+- API call returned invalid object
+- Arguments object value in a test context
+- Array boilerplate creation failed
+- Array index constant value too big
+- Assignment to arguments
+- Assignment to let variable before initialization
+- Assignment to LOOKUP variable
+- Assignment to parameter in arguments object
+- Assignment to parameter, function uses arguments object
+- Bad value context for arguments object value
+- Bad value context for arguments value
+- Bailed out due to dependency change
+- Bailout was not prepared
+- Both registers were smis in SelectNonSmi
+- Call to a JavaScript runtime function
+- Class literal
+- Code generation failed
+- Code object not properly patched
+- Compound assignment to lookup slot
+- Computed property name
+- Context-allocated arguments
+- Copy buffers overlap
+- Could not generate +0.0
+- Could not generate -0.0
+- DebuggerStatement
+- Declaration in catch context
+- Declaration in with context
+- Default NaN mode not set
+- Delete with global variable
+- Delete with non-global variable
+- Destination of copy not aligned
+- Do expression encountered
+- DontDelete cells can't contain the hole
+- DoPushArgument not implemented for double type
+- Eliminated bounds check failed
+- EmitLoadRegister: Unsupported double immediate
+- eval
+- Expected +0.0
+- Expected alignment marker
+- Expected allocation site
+- Expected function object in register
+- Expected HeapNumber
+- Expected native context
+- Expected new space object
+- Expected non-identical objects
+- Expected non-null context
+- Expected undefined or cell in register
+- Expecting alignment for CopyBytes
+- Export declaration
+- External string expected, but not found
+- ForInStatement optimization is disabled
+- ForInStatement with non-local each variable
+- ForOfStatement
+- Frame is expected to be aligned
+- Function calls eval
+- Function is being debugged
+- Function with illegal redeclaration
+- Generated code is too large
+- Generator
+- Generator failed to resume
+- Global functions must have initial map
+- HeapNumberMap register clobbered
+- Import declaration
+- Index is negative
+- Index is too large
+- Inlined runtime function: FastOneByteArrayJoin
+- Inlining bailed out
+- Input GPR is expected to have upper32 cleared
+- Input string too long
+- Integer32ToSmiField writing to non-smi location
+- Invalid capture referenced
+- Invalid ElementsKind for InternalArray or InternalPackedArray
+- invalid full-codegen state
+- Invalid HandleScope level
+- Invalid left-hand side in assignment
+- Invalid lhs in compound assignment
+- Invalid lhs in count operation
+- Invalid min_length
+- JSGlobalObject::native_context should be a native context
+- JSGlobalProxy::context() should not be null
+- JSObject with fast elements map has slow elements
+- Let binding re-initialization
+- Live Bytes Count overflow chunk size
+- LiveEdit
+- Lookup variable in count operation
+- Map became deprecated
+- Map became unstable
+- Native function literal
+- Need a Smi literal here
+- No cases left
+- No empty arrays here in EmitFastOneByteArrayJoin
+- Non-initializer assignment to const
+- Non-object value
+- Non-smi index
+- Non-smi key in array literal
+- Non-smi value
+- Not enough spill slots for OSR
+- Not enough virtual registers (regalloc)
+- Not enough virtual registers for values
+- Object found in smi-only array
+- Object literal with complex property
+- Offset out of range
+- Operand is a smi
+- Operand is a smi and not a bound function
+- Operand is a smi and not a function
+- Operand is a smi and not a name
+- Operand is a smi and not a string
+- Operand is not a bound function
+- Operand is not a date
+- Operand is not a function
+- Operand is not a name
+- Operand is not a number
+- Operand is not a smi
+- Operand is not a string
+- Operand is not smi
+- Operand not a number
+- Optimization disabled by filter
+- Optimization is disabled
+- Optimized too many times
+- Out of virtual registers while trying to allocate temp register
+- Parse/scope error
+- Possible direct call to eval
+- Received invalid return address
+- Reference to a variable which requires dynamic lookup
+- Reference to global lexical variable
+- Reference to uninitialized variable
+- Register did not match expected root
+- Register was clobbered
+- Remembered set pointer is in new space
+- Rest parameters
+- Return address not found in frame
+- Should not directly enter OSR-compiled function
+- Sloppy function expects JSReceiver as receiver.
+- Smi addition overflow
+- Smi subtraction overflow
+- Spread in array literal
+- Stack access below stack pointer
+- Stack frame types must match
+- Super reference
+- The current stack pointer is below csp
+- The function_data field should be a BytecodeArray on interpreter entry
+- The object is not tagged
+- The object is tagged
+- The source and destination are the same
+- The stack pointer is not the expected value
+- The stack was corrupted by MacroAssembler::Call()
+- Too many parameters
+- Too many parameters/locals
+- Too many spill slots needed for OSR
+- ToOperand IsDoubleRegister unimplemented
+- ToOperand Unsupported double immediate
+- ToOperand32 unsupported immediate.
+- TryCatchStatement
+- TryFinallyStatement
+- Unaligned allocation in new space
+- Unaligned cell in write barrier
+- Unexpected allocation top
+- Unexpected color bit pattern found
+- Unexpected ElementsKind in array constructor
+- Unexpected fall-through from string comparison
+- Unexpected fallthrough from CharCodeAt slow case
+- Unexpected fallthrough from CharFromCode slow case
+- Unexpected fallthrough to CharCodeAt slow case
+- Unexpected fallthrough to CharFromCode slow case
+- Unexpected FPCR mode.
+- Unexpected FPU stack depth after instruction
+- Unexpected initial map for Array function
+- Unexpected initial map for Array function (1)
+- Unexpected initial map for Array function (2)
+- Unexpected initial map for InternalArray function
+- Unexpected level after return from api call
+- Unexpected negative value
+- Unexpected number of pre-allocated property fields
+- Unexpected smi value
+- Unexpected string type
+- Unexpected type for RegExp data, FixedArray expected
+- Unexpected value
+- Unexpectedly returned from a throw
+- Unsupported const compound assignment
+- Unsupported count operation with const
+- Unsupported double immediate
+- Unsupported let compound assignment
+- Unsupported lookup slot in declaration
+- Unsupported non-primitive compare
+- Unsupported phi use of arguments
+- Unsupported phi use of const variable
+- Unsupported switch statement
+- Unsupported tagged immediate
+- Variable resolved to with context
+- We should not have an empty lexical context
+- WithStatement
+- Wrong address or value passed to RecordWrite
+- Wrong context passed to function
+- Yield
