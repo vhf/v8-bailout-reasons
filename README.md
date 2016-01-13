@@ -40,12 +40,10 @@ function test2() {
 ```
 
 * Why
-
-It requires rematerialization of the `arguments` array.
+  * It requires rematerialization of the `arguments` array.
 
 * Advices
-
-You never really need to do this.
+  * You never really need to do this.
 
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
@@ -116,13 +114,13 @@ function* test() {
 ## Misc
 ### Resources
 
+- [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
+- [Bad value context for arguments value](https://gist.github.com/Hypercubed/89808f3051101a1a97f3)
 - [I-want-to-optimize-my-JS-application-on-V8 checklist](http://mrale.ph/blog/2011/12/18/v8-optimization-checklist.html)
+- [JavaScript: Performance loss on incorrect arguments using](http://techblog.dorogin.com/2015/05/performance-loss-on-incorrect-arguments-using.html)
 - [Optimization killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
 - [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
-- [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
 - [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
-- [Bad value context for arguments value](https://gist.github.com/Hypercubed/89808f3051101a1a97f3)
-- [JavaScript: Performance loss on incorrect arguments using](http://techblog.dorogin.com/2015/05/performance-loss-on-incorrect-arguments-using.html)
 
 
 ### Template
@@ -137,11 +135,13 @@ function* test() {
 ```
 
 * Why
+  * Some explaination (if you have one)
 
 * Advices
+  * Some advices (if you have any)
 
 * External examples
-  - [example](http://example.com)
+  - [example](http://example.com) where this deopt has/had impact
 
 
 ### All bailout reasons
