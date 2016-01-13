@@ -12,9 +12,9 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 ## Index
 ### [Bailout reasons](#bailout-reasons-1)
 
-* [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
+* [Yield](#yield)
 
 ### [Misc](#misc-1)
 
@@ -22,29 +22,16 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * [Template](#template)
 
 ## Bailout reasons
-### Assignment to parameter in arguments object
-
-* Simple reproduction(s)
-
-```js
-...
-```
-
-* Why
-
-* Advices
-
-* External examples
-
-[mentionned here, need more research... http://vhf.github.io/blog/2015/11/02/javascript-performance-with-babel-and-node-js/]
-
-
 ### Bad value context for arguments value
 
 * Simple reproduction(s)
 
 ```js
-function test() {
+function test1() {
+  arguments[0] = 0;
+}
+
+function test2() {
   arguments.length = 0;
 }
 ```
@@ -73,6 +60,23 @@ You never really need to do this.
 * Why
   * Because ...
   * [In-depth explaination](http://mrale.ph/blog/2015/11/02/crankshaft-vs-arguments-object.html)
+
+* Advices
+
+* External examples
+
+
+### Yield
+
+* Simple reproduction(s)
+
+```js
+function* test() {
+  yield 0;
+}
+```
+
+* Why
 
 * Advices
 
@@ -124,7 +128,7 @@ You never really need to do this.
 - Assignment to parameter in arguments object
 - Assignment to parameter, function uses arguments object
 - Bad value context for arguments object value
-- Bad value context for arguments value
+- ~~Bad value context for arguments value~~
 - Bailed out due to dependency change
 - Bailout was not prepared
 - Both registers were smis in SelectNonSmi
@@ -298,7 +302,7 @@ You never really need to do this.
 - Unsupported let compound assignment
 - Unsupported lookup slot in declaration
 - Unsupported non-primitive compare
-- Unsupported phi use of arguments
+- ~~Unsupported phi use of arguments~~~~
 - Unsupported phi use of const variable
 - Unsupported switch statement
 - Unsupported tagged immediate
@@ -307,4 +311,4 @@ You never really need to do this.
 - WithStatement
 - Wrong address or value passed to RecordWrite
 - Wrong context passed to function
-- Yield
+- ~~Yield~~
