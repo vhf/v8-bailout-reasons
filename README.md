@@ -28,10 +28,12 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * Simple reproduction(s)
 
 ```js
+// strict & sloppy modes
 function test1() {
   arguments[0] = 0;
 }
 
+// strict & sloppy modes
 function test2() {
   arguments.length = 0;
 }
@@ -55,14 +57,40 @@ You never really need to do this.
 * Simple reproduction(s)
 
 ```js
-...
+// strict & sloppy modes
+function test1() {
+  var _arguments = arguments;
+  if (0 === 0) { // anything evaluating to true, except a number or `true`
+    _arguments = [0]; // Unsupported phi use of arguments
+  }
+}
+
+// strict & sloppy modes
+function test2() {
+  var _arguments = arguments;
+  for (var i = 0; i < 1; i++) {
+    _arguments = [0]; // Unsupported phi use of arguments
+  }
+}
+
+// strict & sloppy modes
+function test3() {
+  var _arguments = arguments;
+  var again = true;
+  while (again) {
+    _arguments = [0]; // Unsupported phi use of arguments
+    again = false;
+  }
+}
 ```
 
 * Why
-  * Because ...
+  * Crankshaft is unable to guess whether `_arguments` should be an object or an array. It cannot dematerialize `_arguments` and gives up.
   * [In-depth explaination](http://mrale.ph/blog/2015/11/02/crankshaft-vs-arguments-object.html)
 
 * Advices
+  * There is no good workaround except splitting your function into smaller ones that don't manipulate a copy of `arguments`.
+  * Don't try to fool V8 by looping over `arguments` to create a new array out of it: "*Allocating array (and hope it will get handled by some optimization pass in the V8) is a bad idea.*" - [@mraleph](https://github.com/mraleph) ([source](https://vhf.github.io/blog/2015/11/02/javascript-performance-with-babel-and-node-js/))
 
 * External examples
 
@@ -72,6 +100,7 @@ You never really need to do this.
 * Simple reproduction(s)
 
 ```js
+// strict & sloppy modes
 function* test() {
   yield 0;
 }
@@ -103,6 +132,7 @@ function* test() {
 * Simple reproduction(s)
 
 ```js
+// strict & sloppy modes OR // sloppy mode only
 ...
 ```
 
