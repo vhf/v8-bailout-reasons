@@ -44,7 +44,9 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * Simple reproduction(s)
 
 ```js
-...
+function test() {
+  arguments.length = 0;
+}
 ```
 
 * Why
