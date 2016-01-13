@@ -1,6 +1,7 @@
 # V8 Crankshaft bailout reasons
 A list of Crankshaft bailout reasons with examples
 
+[Your contribution is very welcome!](/CONTRIBUTING.md)
 
 ### Why
 
