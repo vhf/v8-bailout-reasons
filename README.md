@@ -51,9 +51,14 @@ function test() {
 
 * Why
 
+It requires rematerialization of the `arguments` array.
+
 * Advices
 
+You never really need to do this.
+
 * External examples
+  * https://github.com/bevry/taskgroup/issues/12
   * https://github.com/babel/babel/pull/3249
 
 
