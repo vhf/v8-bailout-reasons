@@ -86,6 +86,9 @@ You never really need to do this.
 - [Optimization killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
 - [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
 - [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
+- [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
+- [Bad value context for arguments value](https://gist.github.com/Hypercubed/89808f3051101a1a97f3)
+- [JavaScript: Performance loss on incorrect arguments using](http://techblog.dorogin.com/2015/05/performance-loss-on-incorrect-arguments-using.html)
 
 
 ### Template
