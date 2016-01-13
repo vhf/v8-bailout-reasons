@@ -9,13 +9,19 @@ Late last year I wrote a couple of [blog](https://vhf.github.io/blog/) posts abo
 I'm far from being a V8 expert but I enjoy trying to understand how things work, and since I'm a JavaScript enthousiast I decided to take a stab at listing Crankshaft bailout reasons (together with examples and advices) in a public git repository where everyone could contribute.
 
 
-### Index
+## Index
+### [Bailout reasons](#bailout-reasons)
 
-* [Assignment to parameter in arguments object](assignment-to-parameter-in-arguments-object)
-* [Bad value context for arguments value](bad-value-context-for-arguments-value)
-* [Unsupported phi use of arguments](unsupported-phi-use-of-arguments)
+* [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
+* [Bad value context for arguments value](#bad-value-context-for-arguments-value)
+* [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
 
+### [Misc](#misc)
 
+* [Resources](#resources)
+* [Template](#template)
+
+## Bailout reasons
 ### Assignment to parameter in arguments object
 
 * Simple reproduction(s)
@@ -66,7 +72,17 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * External examples
 
 
+## Misc
+### Resources
+
+- [I-want-to-optimize-my-JS-application-on-V8 checklist](http://mrale.ph/blog/2011/12/18/v8-optimization-checklist.html)
+- [Optimization killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
+- [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
+
+
 ### Template
+
+(Use the following template to add a bailout reason.)
 
 * Simple reproduction(s)
 
