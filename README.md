@@ -78,6 +78,7 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 - [I-want-to-optimize-my-JS-application-on-V8 checklist](http://mrale.ph/blog/2011/12/18/v8-optimization-checklist.html)
 - [Optimization killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
 - [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
+- [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
 
 
 ### Template
