@@ -16,6 +16,7 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [Too many parameters](#too-many-parameters)
 * [TryCatchStatement](#trycatchstatement)
 * [TryFinallyStatement](#tryfinallystatement)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
@@ -148,6 +149,27 @@ function test() {
 * Advices
 
 * External examples
+
+
+### Too many parameters
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+function test(p1, p2, p3, ..., p65535) {
+}
+```
+
+* Why
+  * Setting limits.
+
+* Advices
+  * If you write functions with more than 65535 parameters, you probably don't worry about optimizing your code for V8 anyway.
+
+* External examples
+  * Obviously nobody ever did that. Hopefully nobody will ever do that. Zero google result on this bailout reason.
+  * [V8 code source](https://chromium.googlesource.com/v8/v8/+/fe0fe20e8f094d5688256583abc5695243c6759d%5E%21/#F2)
 
 
 ### TryCatchStatement
@@ -439,7 +461,7 @@ function* test() {
 - The source and destination are the same
 - The stack pointer is not the expected value
 - The stack was corrupted by MacroAssembler::Call()
-- Too many parameters
+- ~~Too many parameters~~
 - Too many parameters/locals
 - Too many spill slots needed for OSR
 - ToOperand IsDoubleRegister unimplemented
