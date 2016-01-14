@@ -92,7 +92,7 @@ function test5() {
 * Advices
   * Read this: https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
   * You could loop over `arguments` to build a new array, but it's not recommended. See [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
-  * Legitimate usage of `arguments` as shown above is very rare.
+  * Usages of `arguments` as shown above are very rarely legitimate.
 
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
