@@ -56,10 +56,18 @@ function test2() {
 
 ```js
 // strict & sloppy modes
-var key = 'a';
-function test() {
-  var obj = {a: 0};
+function test1() {
+  var obj = {};
   for(key in obj);
+}
+
+// strict & sloppy modes
+function key() {
+  return 'a';
+}
+function test2() {
+  var obj = {};
+  for(key() in obj);
 }
 ```
 
