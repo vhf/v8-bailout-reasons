@@ -13,8 +13,11 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 ## Index
 ### [Bailout reasons](#bailout-reasons-1)
 
+* [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [TryCatchStatement](#trycatchstatement)
+* [TryFinallyStatement](#tryfinallystatement)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
 * [Yield](#yield)
 
@@ -24,6 +27,31 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * [Template](#template)
 
 ## Bailout reasons
+### Assignment to parameter in arguments object
+
+Only happens if you reassign to a parameter while also mentionning `arguments` in the function. [More info](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#31-reassigning-a-defined-parameter-while-also-mentioning-arguments-in-the-body-in-sloppy-mode-only-typical-example).
+
+* Simple reproduction(s)
+
+```js
+// sloppy mode only
+function test(a) {
+  if (arguments.length < 2) {
+    a = 0;
+  }
+}
+```
+
+* Why
+  * No idea. The fact that this bailout does not happen in strict mode is surprising.
+
+* Advices
+  * In the above example, you could assign `a` to a new variable.
+  * You should use strict mode anyway.
+
+* External examples
+
+
 ### Bad value context for arguments value
 
 * Simple reproduction(s)
@@ -38,17 +66,38 @@ function test1() {
 function test2() {
   arguments.length = 0;
 }
+
+// strict & sloppy modes
+function test3() {
+  return arguments;
+}
+
+// strict & sloppy modes
+function test4() {
+  var args = [].slice.call(arguments);
+}
+
+// strict & sloppy modes
+function test5() {
+  var a = arguments;
+  return function() {
+    return a;
+  };
+}
 ```
 
 * Why
   * It requires rematerialization of the `arguments` array.
 
 * Advices
-  * You never really need to do this.
+  * Read this: https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
+  * You could loop over `arguments` to build a new array, but it's not recommended. See [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
+  * Legitimate usage of `arguments` as shown above is very rare.
 
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
   * https://github.com/babel/babel/pull/3249
+
 
 ### ForInStatement with non-local each variable
 
@@ -79,6 +128,69 @@ function test2() {
 
 * External examples
   * https://github.com/mbostock/d3/pull/2686
+
+
+### Object literal with complex property
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+function test() {
+  return {
+    __proto__: 3
+  };
+}
+```
+
+* Why
+
+* Advices
+
+* External examples
+
+
+### TryCatchStatement
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes OR // sloppy mode only
+function test() {
+  return 3;
+  try {} catch(e) {}
+}
+```
+
+* Why
+  * Try/catch makes the control flow jump virtually anywhere. It's hardly optimizable because the caught exception is potentially only known at runtime.
+
+* Advices
+  * Don't put try/catch inside computationally intensive functions.
+  * You could `try { test() } catch`
+
+* External examples
+
+
+### TryFinallyStatement
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes OR // sloppy mode only
+function test() {
+  return 3;
+  try {} finally {}
+}
+```
+
+* Why
+  * See [TryCatchStatement](#trycatchstatement)
+
+* Advices
+  * See [TryCatchStatement](#trycatchstatement)
+
+* External example
 
 
 ### Unsupported phi use of arguments
@@ -150,6 +262,7 @@ function* test() {
 - [I-want-to-optimize-my-JS-application-on-V8 checklist](http://mrale.ph/blog/2011/12/18/v8-optimization-checklist.html)
 - [JavaScript: Performance loss on incorrect arguments using](http://techblog.dorogin.com/2015/05/performance-loss-on-incorrect-arguments-using.html)
 - [Optimization killers](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
+- [OptimizationKillers](https://github.com/zhangchiqing/OptimizationKillers)
 - [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
 - [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
 
@@ -172,7 +285,7 @@ function* test() {
   * Some advices (if you have any)
 
 * External examples
-  - [example](http://example.com) where this deopt has/had impact
+  * [example](http://example.com) where this deopt has/had impact
 
 
 ### All bailout reasons
@@ -187,7 +300,7 @@ function* test() {
 - Assignment to arguments
 - Assignment to let variable before initialization
 - Assignment to LOOKUP variable
-- Assignment to parameter in arguments object
+- ~~Assignment to parameter in arguments object~~
 - Assignment to parameter, function uses arguments object
 - Bad value context for arguments object value
 - ~~Bad value context for arguments value~~
@@ -280,7 +393,7 @@ function* test() {
 - Not enough virtual registers (regalloc)
 - Not enough virtual registers for values
 - Object found in smi-only array
-- Object literal with complex property
+- ~~Object literal with complex property~~
 - Offset out of range
 - Operand is a smi
 - Operand is a smi and not a bound function
@@ -332,7 +445,7 @@ function* test() {
 - ToOperand IsDoubleRegister unimplemented
 - ToOperand Unsupported double immediate
 - ToOperand32 unsupported immediate.
-- TryCatchStatement
+- ~~TryCatchStatement~~
 - TryFinallyStatement
 - Unaligned allocation in new space
 - Unaligned cell in write barrier
