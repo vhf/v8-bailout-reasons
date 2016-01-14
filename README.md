@@ -14,6 +14,7 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 ### [Bailout reasons](#bailout-reasons-1)
 
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
+* [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
 * [Yield](#yield)
 
@@ -48,6 +49,28 @@ function test2() {
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
   * https://github.com/babel/babel/pull/3249
+
+### ForInStatement with non-local each variable
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+var key = 'a';
+function test() {
+  var obj = {a: 0};
+  for(key in obj);
+}
+```
+
+* Why
+
+* Advices
+  * Only use pure (i.e. non-computed) local variable in a for...in.
+  * https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#5-for-in
+
+* External examples
+  * https://github.com/mbostock/d3/pull/2686
 
 
 ### Unsupported phi use of arguments
@@ -200,7 +223,7 @@ function* test() {
 - Export declaration
 - External string expected, but not found
 - ForInStatement optimization is disabled
-- ForInStatement with non-local each variable
+- ~~ForInStatement with non-local each variable~~
 - ForOfStatement
 - Frame is expected to be aligned
 - Function calls eval
