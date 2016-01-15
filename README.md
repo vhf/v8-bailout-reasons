@@ -5,7 +5,7 @@ A list of Crankshaft bailout reasons with examples
 
 ### Why
 
-Late last year I wrote a couple of [blog](https://vhf.github.io/blog/) posts about optimizing [Babel](https://babeljs.io) ES2015 to ES5 transpilation for V8 and [fixed](https://github.com/babel/babel/commits?author=vhf) a few issues I had with it.
+Late last year I wrote a couple of [blog](https://vhf.github.io/blog/tags/babel/) posts about optimizing [Babel](https://babeljs.io) ES2015 to ES5 transpilation for V8 and [fixed](https://github.com/babel/babel/commits?author=vhf) a few issues I had with it.
 
 I'm far from being a V8 expert but I enjoy trying to understand how things work, and since I'm a JavaScript enthousiast I decided to take a stab at listing Crankshaft bailout reasons (together with examples and advices) in a public git repository where everyone could contribute.
 
@@ -468,7 +468,7 @@ function* test() {
 - ToOperand Unsupported double immediate
 - ToOperand32 unsupported immediate.
 - ~~TryCatchStatement~~
-- TryFinallyStatement
+- ~~TryFinallyStatement~~
 - Unaligned allocation in new space
 - Unaligned cell in write barrier
 - Unexpected allocation top
