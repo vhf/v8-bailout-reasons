@@ -16,6 +16,7 @@ I'm far from being a V8 expert but I enjoy trying to understand how things work,
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [Rest parameters](#rest-parameters)
 * [Too many parameters](#too-many-parameters)
 * [TryCatchStatement](#trycatchstatement)
 * [TryFinallyStatement](#tryfinallystatement)
@@ -49,6 +50,7 @@ function test(a) {
 * Advices
   * In the above example, you could assign `a` to a new variable.
   * You should use strict mode anyway.
+  * It seems this will be optimized by TurboFan[1][1].
 
 * External examples
 
@@ -94,6 +96,7 @@ function test5() {
   * Read this: https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
   * You could loop over `arguments` to build a new array, but it's not recommended. See [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
   * Usages of `arguments` as shown above are very rarely legitimate.
+  * It seems this will be optimized by TurboFan[1][1].
 
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
@@ -147,6 +150,26 @@ function test() {
 * Why
 
 * Advices
+
+* External examples
+
+
+### Rest parameters
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+function test(...rest) {
+  return rest[0];
+}
+```
+
+* Why
+  * Probably because it requires materializing the `arguments` array.
+
+* Advices
+  * Avoid rest parameters or use Babel's [transform-es2015-parameters](http://babeljs.io/docs/plugins/transform-es2015-parameters/) until TurboFan is able to optimize them[1][1][2][2].
 
 * External examples
 
@@ -254,6 +277,7 @@ function test3() {
 * Advices
   * There is no good workaround except splitting your function into smaller ones that don't manipulate a copy of `arguments`.
   * Don't try to fool V8 by looping over `arguments` to create a new array out of it: "*Allocating array (and hope it will get handled by some optimization pass in the V8) is a bad idea.*" - [@mraleph](https://github.com/mraleph) ([source](https://vhf.github.io/blog/2015/11/02/javascript-performance-with-babel-and-node-js/))
+  * It seems this will be optimized by TurboFan[1][1].
 
 * External examples
 
@@ -277,6 +301,11 @@ function* test() {
 
 
 ## Misc
+
+### References
+[1]: https://chromium.googlesource.com/v8/v8/+/d3f074b23195a2426d14298dca30c4cf9183f203%5E%21/src/bailout-reason.h
+[2]: https://codereview.chromium.org/1272673003
+
 ### Resources
 
 - [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
@@ -444,7 +473,7 @@ function* test() {
 - Register did not match expected root
 - Register was clobbered
 - Remembered set pointer is in new space
-- Rest parameters
+- ~~Rest parameters~~
 - Return address not found in frame
 - Should not directly enter OSR-compiled function
 - Sloppy function expects JSReceiver as receiver.
