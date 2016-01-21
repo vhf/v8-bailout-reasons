@@ -50,7 +50,7 @@ function test(a) {
 * Advices
   * In the above example, you could assign `a` to a new variable.
   * You should use strict mode anyway.
-  * It seems this will be optimized by TurboFan[[1]][1].
+  * It seems this will be optimized by TurboFan [#1][1].
 
 * External examples
 
@@ -96,7 +96,7 @@ function test5() {
   * Read this: https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
   * You could loop over `arguments` to build a new array, but it's not recommended. See [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
   * Usages of `arguments` as shown above are very rarely legitimate.
-  * It seems this will be optimized by TurboFan[[1]][1].
+  * It seems this will be optimized by TurboFan [#1][1].
 
 * External examples
   * https://github.com/bevry/taskgroup/issues/12
@@ -169,7 +169,7 @@ function test(...rest) {
   * Probably because it requires materializing the `arguments` array.
 
 * Advices
-  * Avoid rest parameters or use Babel's [transform-es2015-parameters](http://babeljs.io/docs/plugins/transform-es2015-parameters/) until TurboFan is able to optimize them[[1]][1][[2]][2].
+  * Avoid rest parameters or use Babel's [transform-es2015-parameters](http://babeljs.io/docs/plugins/transform-es2015-parameters/) until TurboFan is able to optimize them [#1][1], [#2][2].
 
 * External examples
 
@@ -277,7 +277,7 @@ function test3() {
 * Advices
   * There is no good workaround except splitting your function into smaller ones that don't manipulate a copy of `arguments`.
   * Don't try to fool V8 by looping over `arguments` to create a new array out of it: "*Allocating array (and hope it will get handled by some optimization pass in the V8) is a bad idea.*" - [@mraleph](https://github.com/mraleph) ([source](https://vhf.github.io/blog/2015/11/02/javascript-performance-with-babel-and-node-js/))
-  * It seems this will be optimized by TurboFan[[1]][1].
+  * It seems this will be optimized by TurboFan [#1][1].
 
 * External examples
 
