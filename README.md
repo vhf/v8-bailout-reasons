@@ -3,11 +3,10 @@ A list of Crankshaft bailout reasons with examples
 
 [Your contribution is very welcome!](/CONTRIBUTING.md)
 
-### Why
 
-Late last year I wrote a couple of [blog](https://vhf.github.io/blog/tags/babel/) posts about optimizing [Babel](https://babeljs.io) ES2015 to ES5 transpilation for V8 and [fixed](https://github.com/babel/babel/commits?author=vhf) a few issues I had with it.
+### What this is about
 
-I'm far from being a V8 expert but I enjoy trying to understand how things work, and since I'm a JavaScript enthousiast I decided to take a stab at listing Crankshaft bailout reasons (together with examples and advices) in a public git repository where everyone could contribute.
+In order to keep this section short and allow people to get to the primary content of this repo faster, here is what it's all about and why you (probably) should care: [Chromium, Chrome, Node.js, V8, Crankshaft and bailout reasons](https://vhf.github.io/blog/2016/01/22/chromium-chrome-v8-crankshaft-bailout-reasons/).
 
 
 ## Index
@@ -299,11 +298,12 @@ function* test() {
 
 * External examples
 
-
-## Misc
+---
 
 [1]: https://chromium.googlesource.com/v8/v8/+/d3f074b23195a2426d14298dca30c4cf9183f203%5E%21/src/bailout-reason.h
 [2]: https://codereview.chromium.org/1272673003
+
+## Misc
 
 ### Resources
 
