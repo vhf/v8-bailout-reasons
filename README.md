@@ -375,21 +375,25 @@ function* test() {
 
 (Use the following template to add a bailout reason.)
 
-* Simple reproduction(s)
+    ### This is a bailout reason
 
-```js
-// strict & sloppy modes OR // sloppy mode only
-...
-```
+    (optional explanation)
 
-* Why
-  * Some explaination (if you have one)
+    - Simple reproduction(s)
 
-* Advices
-  * Some advices (if you have any)
+    ```js
+    // strict & sloppy modes OR // sloppy mode only
+    ...
+    ```
 
-* External examples
-  * [example](http://example.com) where this deopt has/had impact
+    - Why
+      - Some explaination (if you have one)
+
+    - Advices
+      - Some advices (if you have any)
+
+    - External examples
+      - [example](http://example.com) where this deopt has/had impact
 
 
 ### All bailout reasons
