@@ -15,6 +15,7 @@ In order to keep this section short and allow people to get to the primary conte
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [Reference to a variable which requires dynamic lookup](#reference-to-a-variable-which-requires-dynamic-lookup)
 * [Rest parameters](#rest-parameters)
 * [Too many parameters](#too-many-parameters)
 * [TryCatchStatement](#trycatchstatement)
@@ -131,6 +132,29 @@ function test2() {
 
 * External examples
   * https://github.com/mbostock/d3/pull/2686
+
+
+### Reference to a variable which requires dynamic lookup
+
+* Simple reproduction(s)
+
+```js
+// sloppy mode only
+function test() {
+  with ({x:1}) {
+    return x;
+  }
+}
+```
+
+* Why
+  * "Variable lookup fails at compile time, Crankshaft needs to resort to dynamic lookup at runtime." - Yang Guo [#3][3]
+
+* Advices
+  * "Refactor to remove the dependency on runtime-information to resolve the lookup." - Paul Irish [#4][4]
+  * **No bailout with TurboFan.**
+
+* External examples
 
 
 ### Object literal with complex property
@@ -302,6 +326,8 @@ function* test() {
 
 [1]: https://chromium.googlesource.com/v8/v8/+/d3f074b23195a2426d14298dca30c4cf9183f203%5E%21/src/bailout-reason.h
 [2]: https://codereview.chromium.org/1272673003
+[3]: https://groups.google.com/forum/#!msg/google-chrome-developer-tools/Y0J2XQ9iiqU/H60qqZNlQa8J
+[4]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-37269998
 
 ## Misc
 
@@ -466,7 +492,7 @@ function* test() {
 - Parse/scope error
 - Possible direct call to eval
 - Received invalid return address
-- Reference to a variable which requires dynamic lookup
+- ~~Reference to a variable which requires dynamic lookup~~
 - Reference to global lexical variable
 - Reference to uninitialized variable
 - Register did not match expected root
