@@ -15,6 +15,8 @@ In order to keep this section short and allow people to get to the primary conte
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [Object literal with complex property](#object-literal-with-complex-property)
+* [Optimized too many times](#optimized-too-many-times)
 * [Reference to a variable which requires dynamic lookup](#reference-to-a-variable-which-requires-dynamic-lookup)
 * [Rest parameters](#rest-parameters)
 * [Too many parameters](#too-many-parameters)
@@ -96,6 +98,7 @@ function test5() {
   * Read this: https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#3-managing-arguments
   * You could loop over `arguments` to build a new array, but it's not recommended. See [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
   * Usages of `arguments` as shown above are very rarely legitimate.
+  * [More about this bailout reason][7]
   * It seems this will be optimized by TurboFan [#1][1].
 
 * External examples
@@ -134,6 +137,46 @@ function test2() {
   * https://github.com/mbostock/d3/pull/2686
 
 
+### Object literal with complex property
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+function test() {
+  return {
+    __proto__: 3
+  };
+}
+```
+
+* Why
+
+* Advices
+
+* External examples
+
+
+### Optimized too many times
+
+* Simple reproduction(s)
+
+```js
+// strict & sloppy modes
+// No known canonical reproduction
+```
+
+* Why
+  * Optimization failed so many times that Crankshaft gave up.
+  * "In reality this very often actually means a bug in V8 - there is some optimization which is too optimistic so the generated code deopts all the time." - @mraleph [#5][5]
+  * [More about this bailout reason][6]
+
+* Advices
+  * "Just use IRHydra and look at the deoptimization reasons - the picture should become clear immediately." - @mraleph [#5][5]
+
+* External examples
+
+
 ### Reference to a variable which requires dynamic lookup
 
 * Simple reproduction(s)
@@ -153,26 +196,6 @@ function test() {
 * Advices
   * "Refactor to remove the dependency on runtime-information to resolve the lookup." - Paul Irish [#4][4]
   * **No bailout with TurboFan.**
-
-* External examples
-
-
-### Object literal with complex property
-
-* Simple reproduction(s)
-
-```js
-// strict & sloppy modes
-function test() {
-  return {
-    __proto__: 3
-  };
-}
-```
-
-* Why
-
-* Advices
 
 * External examples
 
@@ -328,6 +351,9 @@ function* test() {
 [2]: https://codereview.chromium.org/1272673003
 [3]: https://groups.google.com/forum/#!msg/google-chrome-developer-tools/Y0J2XQ9iiqU/H60qqZNlQa8J
 [4]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-37269998
+[5]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-140030617
+[6]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-145192013
+[7]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-147569505
 
 ## Misc
 
@@ -487,7 +513,7 @@ function* test() {
 - Operand not a number
 - Optimization disabled by filter
 - Optimization is disabled
-- Optimized too many times
+- ~~Optimized too many times~~
 - Out of virtual registers while trying to allocate temp register
 - Parse/scope error
 - Possible direct call to eval
