@@ -379,21 +379,21 @@ function* test() {
 
     (optional explanation)
 
-    - Simple reproduction(s)
+    * Simple reproduction(s)
 
     ```js
     // strict & sloppy modes OR // sloppy mode only
     ...
     ```
 
-    - Why
-      - Some explaination (if you have one)
+    * Why
+      * Some explaination (if you have one)
 
-    - Advices
-      - Some advices (if you have any)
+    * Advices
+      * Some advices (if you have any)
 
-    - External examples
-      - [example](http://example.com) where this deopt has/had impact
+    * External examples
+      * [example](http://example.com) where this deopt has/had impact
 
 
 ### All bailout reasons
