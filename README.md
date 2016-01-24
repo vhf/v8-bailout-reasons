@@ -4,7 +4,7 @@ A list of Crankshaft bailout reasons with examples, explanations and advices.
 
 Unless otherwise specified, the following are Crankshaft bailouts.
 
-[Your contribution is very welcome!](/CONTRIBUTING.md)
+[Your contribution is most welcome!](/CONTRIBUTING.md)
 
 
 ### What this is about
