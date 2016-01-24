@@ -238,7 +238,7 @@ function test(p1, p2, p3, ..., p512) {
   * Setting limits.
 
 * Advices
-  * If you write functions with more than 512 parameters, you probably don't worry about optimizing your code for V8 anyway.
+  * If you write functions with 512 parameters or more, you probably don't worry about optimizing your code for V8 anyway.
 
 * External examples
   * Obviously nobody ever did that. Hopefully nobody will ever do that. Zero google result on this bailout reason.
