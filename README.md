@@ -1,4 +1,5 @@
 # V8 bailout reasons
+
 A list of Crankshaft bailout reasons with examples, explanations and advices.
 
 Unless otherwise specified, the following are Crankshaft bailouts.
@@ -27,10 +28,11 @@ In order to keep this section short and allow people to get to the primary conte
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
 * [Yield](#yield)
 
-### [Misc](#misc-1)
+### [References](#references-1)
 
 * [Resources](#resources)
-* [Template](#template)
+* [All bailout reasons](#all-bailout-reasons)
+
 
 ## Bailout reasons
 ### Assignment to parameter in arguments object
@@ -357,8 +359,8 @@ function* test() {
 [6]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-145192013
 [7]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-147569505
 
-## Misc
 
+## References
 ### Resources
 
 - [All bailout reasons in Chromium codebase](https://code.google.com/p/chromium/codesearch#chromium/src/v8/src/bailout-reason.h)
@@ -369,31 +371,6 @@ function* test() {
 - [OptimizationKillers](https://github.com/zhangchiqing/OptimizationKillers)
 - [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
 - [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
-
-
-### Template
-
-(Use the following template to add a bailout reason.)
-
-    ### This is a bailout reason
-
-    (optional explanation)
-
-    * Simple reproduction(s)
-
-    ```js
-    // strict & sloppy modes OR // sloppy mode only
-    ...
-    ```
-
-    * Why
-      * Some explaination (if you have one)
-
-    * Advices
-      * Some advices (if you have any)
-
-    * External examples
-      * [example](http://example.com) where this deopt has/had impact
 
 
 ### All bailout reasons
