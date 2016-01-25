@@ -562,7 +562,7 @@ function* test() {
 - Unsupported let compound assignment
 - Unsupported lookup slot in declaration
 - Unsupported non-primitive compare
-- ~~Unsupported phi use of arguments~~~~
+- ~~Unsupported phi use of arguments~~
 - Unsupported phi use of const variable
 - Unsupported switch statement
 - Unsupported tagged immediate
