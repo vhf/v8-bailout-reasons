@@ -250,7 +250,7 @@ function test(p1, p2, p3, ..., p512) {
 * Simple reproduction(s)
 
 ```js
-// strict & sloppy modes OR // sloppy mode only
+// strict & sloppy modes
 function test() {
   return 3;
   try {} catch(e) {}
@@ -272,7 +272,7 @@ function test() {
 * Simple reproduction(s)
 
 ```js
-// strict & sloppy modes OR // sloppy mode only
+// strict & sloppy modes
 function test() {
   return 3;
   try {} finally {}
