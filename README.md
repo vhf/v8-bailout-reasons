@@ -18,6 +18,7 @@ In order to keep this section short and allow people to get to the primary conte
 * [Assignment to parameter in arguments object](#assignment-to-parameter-in-arguments-object)
 * [Bad value context for arguments value](#bad-value-context-for-arguments-value)
 * [ForInStatement with non-local each variable](#forinstatement-with-non-local-each-variable)
+* [Inlining bailed out](#inlining-bailed-out)
 * [Object literal with complex property](#object-literal-with-complex-property)
 * [Optimized too many times](#optimized-too-many-times)
 * [Reference to a variable which requires dynamic lookup](#reference-to-a-variable-which-requires-dynamic-lookup)
@@ -139,6 +140,44 @@ function test2() {
 
 * External examples
   * https://github.com/mbostock/d3/pull/2686
+
+
+### Inlining bailed out
+
+* Simple reproduction(s)
+
+[Courtesy of @kangax](https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-32784608)
+
+```js
+// strict & sloppy modes
+var obj = { prop1: ... };
+
+function test(param) {
+  param.prop2 = ...; // Inlining bailed out
+}
+test(obj);
+
+// strict & sloppy modes
+var obj = { prop1: ... };
+
+function someMethodThatAssignsSomeOtherProp(param) {
+  param.someOtherProp = ...; // Inlining bailed out
+}
+
+function test(param) {
+  someMethodThatAssignsSomeOtherProp(param);
+}
+
+f(obj);
+```
+
+* Why
+  * Crankshaft predicts that `param` will have the same hidden class as `obj`, allowing optimization by doing inline caching. At the annotated lines above, Crankshaft notices that `obj`'s hidden class is not suitable for `param` and bails out (it cannot patch the inline cache code with the hidden class information). [More about inline caching and hidden classes][8]
+
+* Advices
+  * When creating an object initialize all the properties you are going to use, instead of adding new properties to an existing object.
+
+* External examples
 
 
 ### Object literal with complex property
@@ -358,6 +397,7 @@ function* test() {
 [5]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-140030617
 [6]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-145192013
 [7]: https://github.com/GoogleChrome/devtools-docs/issues/53#issuecomment-147569505
+[8]: https://developers.google.com/v8/design
 
 
 ## References
@@ -444,7 +484,7 @@ function* test() {
 * Index is negative
 * Index is too large
 * Inlined runtime function: FastOneByteArrayJoin
-* Inlining bailed out
+* ~~Inlining bailed out~~
 * Input GPR is expected to have upper32 cleared
 * Input string too long
 * Integer32ToSmiField writing to non-smi location
