@@ -52,7 +52,7 @@ function test(a) {
 ```
 
 * Why
-  * No idea. The fact that this bailout does not happen in strict mode is surprising.
+  * In sloppy mode V8 needs to preserve bindings between `arguments[0]` and `a` so that when any `a` was passed, and you reassign it to `10`, and later try to read `arguments[0]`, it has to return `10`, too. This is non-trivial for the engine, so it chooses to bail out. Strict mode removes this requirement, and `arguments` and `a` behave as regular independent JavaScript variables, so deoptimization does not occur.
 
 * Advices
   * In the above example, you could assign `a` to a new variable.
