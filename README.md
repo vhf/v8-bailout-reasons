@@ -27,6 +27,7 @@ In order to keep this section short and allow people to get to the primary conte
 * [TryCatchStatement](#trycatchstatement)
 * [TryFinallyStatement](#tryfinallystatement)
 * [Unsupported phi use of arguments](#unsupported-phi-use-of-arguments)
+* [Unsupported phi use of const or let variable](#unsupported-phi-use-of-const-or-let-variable)
 * [Yield](#yield)
 
 ### [References](#references-1)
@@ -371,6 +372,26 @@ function test3() {
 * External examples
 
 
+### Unsupported phi use of const or let variable
+
+* Simple reproduction(s)
+
+```js
+function test() {
+  for (let i = 0; i < 0; i++) {
+    const x = __lookupGetter__; // `__lookupGetter__` and
+  }
+  const self = this; // `this` should both be present for this to happen
+}
+```
+
+* Why
+
+* Advices
+
+* External examples
+
+
 ### Yield
 
 * Simple reproduction(s)
@@ -603,7 +624,7 @@ function* test() {
 * Unsupported lookup slot in declaration
 * Unsupported non-primitive compare
 * ~~Unsupported phi use of arguments~~
-* Unsupported phi use of const variable
+* ~~Unsupported phi use of const or let variable~~
 * Unsupported switch statement
 * Unsupported tagged immediate
 * Variable resolved to with context
