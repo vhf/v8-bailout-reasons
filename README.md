@@ -39,7 +39,7 @@ In order to keep this section short and allow people to get to the primary conte
 ## Bailout reasons
 ### Assignment to parameter in arguments object
 
-Only happens if you reassign to a parameter while also mentionning `arguments` in the function. [More info](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#31-reassigning-a-defined-parameter-while-also-mentioning-arguments-in-the-body-in-sloppy-mode-only-typical-example).
+Only happens if you reassign to a parameter while also mentioning `arguments` in the function. [More info](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers#31-reassigning-a-defined-parameter-while-also-mentioning-arguments-in-the-body-in-sloppy-mode-only-typical-example).
 
 * Simple reproduction(s)
 
