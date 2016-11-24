@@ -386,6 +386,7 @@ function test() {
 ```
 
 * Why
+  * Crankshaft sees a hole (marker for Temporary Dead Zone of `let`/`const`) and aborts compilation.
 
 * Advices
 
