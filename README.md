@@ -9,7 +9,7 @@ Unless otherwise specified, the following are Crankshaft bailouts.
 
 ### What this is about
 
-In order to keep this section short and allow people to get to the primary content of this repo faster, here is what it's all about and why you (probably) should care: [Chromium, Chrome, Node.js, V8, Crankshaft and bailout reasons](https://vhf.github.io/blog/2016/01/22/chromium-chrome-v8-crankshaft-bailout-reasons/).
+In order to keep this section short and allow people to get to the primary content of this repo faster, here is what it's all about and why you (probably) should care: [Chromium, Chrome, Node.js, V8, Crankshaft and bailout reasons](https://draft.li/blog/2016/01/22/chromium-chrome-v8-crankshaft-bailout-reasons/).
 
 
 ## Index
@@ -366,7 +366,7 @@ function test3() {
 
 * Advices
   * There is no good workaround except splitting your function into smaller ones that don't manipulate a copy of `arguments`.
-  * Don't try to fool V8 by looping over `arguments` to create a new array out of it: "Allocating array (and hope it will get handled by some optimization pass in the V8) is a bad idea." - [@mraleph](https://github.com/mraleph) ([source](https://vhf.github.io/blog/2015/11/02/javascript-performance-with-babel-and-node-js/))
+  * Don't try to fool V8 by looping over `arguments` to create a new array out of it: "Allocating array (and hope it will get handled by some optimization pass in the V8) is a bad idea." - [@mraleph](https://github.com/mraleph) ([source](https://draft.li/blog/2015/11/02/javascript-performance-with-babel-and-node-js/))
   * It seems this will be optimized by TurboFan [#1][1].
 
 * External examples
