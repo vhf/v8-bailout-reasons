@@ -30,7 +30,7 @@ By contributing you agree to respect the [Code of Conduct](/CODE_OF_CONDUCT.md) 
     ```
 
     * Why
-      * Some explaination (if you have one)
+      * Some explanation (if you have one)
 
     * Advices
       * Some advices (if you have any)
