@@ -129,7 +129,7 @@ function key() {
 }
 function test2() {
   var obj = {};
-  for(key() in obj);
+  for(key in obj);
 }
 ```
 
