@@ -618,7 +618,7 @@ function* test() {
 * Unexpected type for RegExp data, FixedArray expected
 * Unexpected value
 * Unexpectedly returned from a throw
-* Unsupported const compound assignment
+* ~~Unsupported const compound assignment~~
 * Unsupported count operation with const
 * Unsupported double immediate
 * Unsupported let compound assignment
