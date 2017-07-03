@@ -263,6 +263,48 @@ function test(...rest) {
 
 * External examples
 
+### Smi addition overflow
+* Simple reproduction(s)
+Smi - A Smi is a 32-bit signed int on 64-bit architectures and a 31-bit signed int on 32-bit architectures.
+
+Smi addition overflow
+```js
+function add(a, b) {
+  return a + b;
+}
+
+add(1, 2);
+add(1, 2);
+%OptimizeFunctionOnNextCall(add);
+add(2 ** 31 - 2, 20);
+```
+
+* Why
+    * Once addition is performed, you have no Smi anymore, yet a HeapNumber.
+* Advices
+    * Create a separate function if you'd like to work on such high values.
+* External examples
+    * [Blogpost](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
+
+### Smi subtraction overflow
+* Simple reproduction(s)
+Same case as with Smi addition overflow
+Smi addition overflow
+```js
+function subtract(a, b) {
+  return a - b;
+}
+
+subtract(1, 2);
+subtract(1, 2);
+%OptimizeFunctionOnNextCall(subtract);
+subtract(-3, 2 ** 31 - 1);
+```
+
+* Why
+    * Once addition is performed, you have no Smi anymore, yet a HeapNumber.
+* Advices
+    * Create a separate function if you'd like to work on such high values.
 
 ### Too many parameters
 
@@ -573,8 +615,8 @@ function* test() {
 * Return address not found in frame
 * Should not directly enter OSR-compiled function
 * Sloppy function expects JSReceiver as receiver.
-* Smi addition overflow
-* Smi subtraction overflow
+* ~~Smi addition overflow~~
+* ~~Smi subtraction overflow~~
 * Spread in array literal
 * Stack access below stack pointer
 * Stack frame types must match
