@@ -280,9 +280,9 @@ add(2 ** 31 - 2, 20);
 ```
 
 * Why
-    * Once addition is performed, you have no Smi anymore, yet a HeapNumber.
+    * Once addition is performed, the return value cannot be represented as a Smi and thus is casted to [HeapNumber](https://github.com/v8/v8/blob/master/src/objects.h#L1838)
 * Advices
-    * Create a separate function if you'd like to work on such high values.
+    * You could have 2 separate functions - one for Smis and one for HeapNumbers.
 * External examples
     * [Blogpost](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 
@@ -302,9 +302,9 @@ subtract(-3, 2 ** 31 - 1);
 ```
 
 * Why
-    * Once addition is performed, you have no Smi anymore, yet a HeapNumber.
+    * Once subtraction is performed, the return value cannot be represented as a Smi and thus is casted to [HeapNumber](https://github.com/v8/v8/blob/master/src/objects.h#L1838)
 * Advices
-    * Create a separate function if you'd like to work on such high values.
+    * You could have 2 separate functions - one for Smis and one for HeapNumbers.
 
 ### Too many parameters
 
@@ -615,8 +615,8 @@ function* test() {
 * Return address not found in frame
 * Should not directly enter OSR-compiled function
 * Sloppy function expects JSReceiver as receiver.
-* ~~Smi addition overflow~~
-* ~~Smi subtraction overflow~~
+* Smi addition overflow
+* Smi subtraction overflow
 * Spread in array literal
 * Stack access below stack pointer
 * Stack frame types must match
