@@ -23,6 +23,8 @@ In order to keep this section short and allow people to get to the primary conte
 * [Optimized too many times](#optimized-too-many-times)
 * [Reference to a variable which requires dynamic lookup](#reference-to-a-variable-which-requires-dynamic-lookup)
 * [Rest parameters](#rest-parameters)
+* [Smi addition overflow](#smi-addition-overflow)
+* [Smi subtraction overflow](#smi-subtraction-overflow)
 * [Too many parameters](#too-many-parameters)
 * [TryCatchStatement](#trycatchstatement)
 * [TryFinallyStatement](#tryfinallystatement)
@@ -284,7 +286,6 @@ add(2 ** 31 - 2, 20);
 * Advices
     * You could have 2 separate functions - one for Smis and one for HeapNumbers.
 * External examples
-    * [Blogpost](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 
 ### Smi subtraction overflow
 * Simple reproduction(s)
@@ -305,6 +306,7 @@ subtract(-3, 2 ** 31 - 1);
     * Once subtraction is performed, the return value cannot be represented as a Smi and thus is casted to [HeapNumber](https://github.com/v8/v8/blob/master/src/objects.h#L1838)
 * Advices
     * You could have 2 separate functions - one for Smis and one for HeapNumbers.
+* External examples
 
 ### Too many parameters
 
@@ -475,7 +477,7 @@ function* test() {
 * [OptimizationKillers](https://github.com/zhangchiqing/OptimizationKillers)
 * [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
 * [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
-
+* [A high-level tutorial about tracing deopts points](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 
 ### All bailout reasons
 
@@ -615,8 +617,8 @@ function* test() {
 * Return address not found in frame
 * Should not directly enter OSR-compiled function
 * Sloppy function expects JSReceiver as receiver.
-* Smi addition overflow
-* Smi subtraction overflow
+* ~~Smi addition overflow~~
+* ~~Smi subtraction overflow~~
 * Spread in array literal
 * Stack access below stack pointer
 * Stack frame types must match
