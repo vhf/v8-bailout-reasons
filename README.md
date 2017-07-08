@@ -23,6 +23,8 @@ In order to keep this section short and allow people to get to the primary conte
 * [Optimized too many times](#optimized-too-many-times)
 * [Reference to a variable which requires dynamic lookup](#reference-to-a-variable-which-requires-dynamic-lookup)
 * [Rest parameters](#rest-parameters)
+* [Smi addition overflow](#smi-addition-overflow)
+* [Smi subtraction overflow](#smi-subtraction-overflow)
 * [Too many parameters](#too-many-parameters)
 * [TryCatchStatement](#trycatchstatement)
 * [TryFinallyStatement](#tryfinallystatement)
@@ -263,6 +265,48 @@ function test(...rest) {
 
 * External examples
 
+### Smi addition overflow
+* Simple reproduction(s)
+Smi - A Smi is a 32-bit signed int on 64-bit architectures and a 31-bit signed int on 32-bit architectures.
+
+Smi addition overflow
+```js
+function add(a, b) {
+  return a + b;
+}
+
+add(1, 2);
+add(1, 2);
+%OptimizeFunctionOnNextCall(add);
+add(2 ** 31 - 2, 20);
+```
+
+* Why
+    * Once addition is performed, the return value cannot be represented as a Smi and thus is casted to [HeapNumber](https://github.com/v8/v8/blob/master/src/objects.h#L1838)
+* Advices
+    * You could have 2 separate functions - one for Smis and one for HeapNumbers.
+* External examples
+
+### Smi subtraction overflow
+* Simple reproduction(s)
+Same case as with Smi addition overflow
+Smi addition overflow
+```js
+function subtract(a, b) {
+  return a - b;
+}
+
+subtract(1, 2);
+subtract(1, 2);
+%OptimizeFunctionOnNextCall(subtract);
+subtract(-3, 2 ** 31 - 1);
+```
+
+* Why
+    * Once subtraction is performed, the return value cannot be represented as a Smi and thus is casted to [HeapNumber](https://github.com/v8/v8/blob/master/src/objects.h#L1838)
+* Advices
+    * You could have 2 separate functions - one for Smis and one for HeapNumbers.
+* External examples
 
 ### Too many parameters
 
@@ -433,7 +477,7 @@ function* test() {
 * [OptimizationKillers](https://github.com/zhangchiqing/OptimizationKillers)
 * [Performance Tips for JavaScript in V8](http://www.html5rocks.com/en/tutorials/speed/v8/)
 * [thlorenz/v8-perf](https://github.com/thlorenz/v8-perf/blob/master/compiler.md)
-
+* [A high-level tutorial about tracing deopts points](https://www.netguru.co/blog/tracing-patterns-hinder-performance)
 
 ### All bailout reasons
 
@@ -573,8 +617,8 @@ function* test() {
 * Return address not found in frame
 * Should not directly enter OSR-compiled function
 * Sloppy function expects JSReceiver as receiver.
-* Smi addition overflow
-* Smi subtraction overflow
+* ~~Smi addition overflow~~
+* ~~Smi subtraction overflow~~
 * Spread in array literal
 * Stack access below stack pointer
 * Stack frame types must match
