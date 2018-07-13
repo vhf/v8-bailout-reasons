@@ -4,13 +4,15 @@ A list of Crankshaft bailout reasons with examples, explanations and advices.
 
 Unless otherwise specified, the following are Crankshaft bailouts.
 
-[Your contribution is most welcome!](/CONTRIBUTING.md)
+### Warning!
 
+Starting from Chrome 59 and [Node.js 8.3.0](https://medium.com/the-node-js-collection/node-js-8-3-0-is-now-available-shipping-with-the-ignition-turbofan-execution-pipeline-aa5875ad3367), **Crankshaft is not used anymore**. It uses [TurboFan](https://github.com/v8/v8/wiki/TurboFan) instead.
+
+**The content of this repository only applies to Crankshaft**. If the JavaScript engine you are targeting does not use Crankshaft as its optimizing compiler, you should not care about this repository and the advices present in there. This repository will stay here for historical reasons, it still has documentation value.
 
 ### What this is about
 
-In order to keep this section short and allow people to get to the primary content of this repo faster, here is what it's all about and why you (probably) should care: [Chromium, Chrome, Node.js, V8, Crankshaft and bailout reasons](https://draft.li/blog/2016/01/22/chromium-chrome-v8-crankshaft-bailout-reasons/).
-
+In order to keep this section short and allow people to get to the primary content of this repo faster, here is what it's all about and why you (probably) should care if you are using Crankshaft: [Chromium, Chrome, Node.js, V8, Crankshaft and bailout reasons](https://draft.li/blog/2016/01/22/chromium-chrome-v8-crankshaft-bailout-reasons/).
 
 ## Index
 ### [Bailout reasons](#bailout-reasons-1)
