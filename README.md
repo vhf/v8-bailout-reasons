@@ -429,14 +429,41 @@ function test() {
   }
   const self = this; // `this` should both be present for this to happen
 }
+
+function test2(arr) { // selection sort
+  let curr = 0;
+  let n = arr.length;
+  while (curr < n) {
+    let low = curr;
+    let next = curr + 1;
+    while (next < n) {
+      if (arr[next] > arr[low]) {
+        low = next;
+      }
+      next++;
+    }
+    let tmp = arr[curr]; // this is the line that triggers the bug
+    arr[curr] = arr[low];
+    arr[low] = tmp;
+    curr++;
+  }
+};
+
+test2([...Array(1000).keys()]);
 ```
 
 * Why
   * Crankshaft sees a hole (marker for Temporary Dead Zone of `let`/`const`) and aborts compilation.
 
 * Advices
+  * In test2, the error can be suppressed in the following ways:
+    * Change tmp declaration from `let` to `var`.
+    * Declare `tmp` at the beginning of the function, before the outer while loop.
+    * Encapsulate the last 4 lines of the function into an arbitrary block.
+    * Remove the inner while loop.
 
 * External examples
+  * https://gist.github.com/billhance/b576db4a58b2c3ccbe67df07acf4cc1f
 
 
 ### Yield
