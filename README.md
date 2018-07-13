@@ -1,6 +1,7 @@
-# V8 bailout reasons
+# V8 bailout/deopts reasons
 
-A list of Crankshaft bailout reasons with examples, explanations and advices.
+A list of V8 bailout/deopts reasons with examples, explanations and advices. Includes both the former optimizing compiler Crankshaft and the current compilation infrastructure Ignition + [TurboFan](https://github.com/v8/v8/wiki/TurboFan).
+
 
 Unless otherwise specified, the following are Crankshaft bailouts.
 
@@ -39,6 +40,102 @@ In order to keep this section short and allow people to get to the primary conte
 * [Resources](#resources)
 * [All bailout reasons](#all-bailout-reasons)
 
+## Deoptimization reasons
+
+### WrongMap
+One of the most common deopt reasons. It happens when the shape of passed object doesn't match.
+More about that [here](http://ripsawridge.github.io/articles/stack-changes/)
+
+* Simple reproduction(s)
+
+```js
+function getFoo(obj) {
+  return obj.foo;
+}
+
+getFoo({ foo: 'bar' });
+getFoo({ foo: 'bar' });
+%OptimizeFunctionOnNextCall(getFoo);
+getFoo({ foo: 'bar', test: 'yaay' });
+```
+
+```js
+function getFirstItem(arr) {
+  return arr[0];
+}
+
+getFirstItem([0, 1]);
+getFirstItem([0, 1, 2, 3, 4]);
+%OptimizeFunctionOnNextCall(getFirstItem);
+getFirstItem(['boo']);
+```
+
+* Why
+  * Collected feedback is invalidated as the object met is simply unknown and the past assumptions are likely to be obsolete.
+  * More about that [here](http://ripsawridge.github.io/articles/stack-changes/)
+
+* Advices
+  * Try to sort properties in objects in the alphabetical order (yes, order of properties does matter)
+  * Kinds can be found [here](https://github.com/v8/v8/blob/46a5d96bf74d648e84d92f2e1cfff788e522503b/src/elements-kind.h)
+
+
+### Smi
+Only happens when your function is optimized and you don't expect SMI to be passed.
+
+* Simple reproduction(s)
+
+```
+function concat(str1, str2) {
+ return str1 + str2;
+}
+
+concat('2', '3');
+concat('10', '3');
+%OptimizeFunctionOnNextCall(concat);
+concat('2', 3);
+```
+
+* Why
+
+* Advices
+  * Keep your function statically typed and don't pass Smi if you don't have to. You can pass String(3) instead.
+
+### Not a Smi
+
+* Simple reproduction(s)
+
+```
+function add(a, b) {
+ return a + b;
+}
+
+add(1, 2);
+add(4, 5);
+%OptimizeFunctionOnNextCall(add);
+add('2', 3);
+```
+* Why
+
+* Advices
+  * Keep your function statically typed (there is info about Smi within this README). You can pass Number(3) instead.
+
+
+### Not a heap number/undefined
+
+* Simple reproduction(s)
+```
+function add(a) {
+  return a + 1;
+}
+
+add(2 ** 32);
+add(2 ** 32);
+%OptimizeFunctionOnNextCall(add);
+add('d');
+```
+* Why
+
+* Advices
 
 ## Bailout reasons
 ### Assignment to parameter in arguments object
@@ -680,3 +777,66 @@ function* test() {
 * Wrong address or value passed to RecordWrite
 * Wrong context passed to function
 * ~~Yield~~
+
+
+
+### All deoptimize reasons
+*NOTE*: For the latest deopts list, look at `src/deoptimize-reason.h` in the V8 src.
+
+* V(AccessCheck, "Access check needed")
+* V(NoReason, "no reason")
+* V(ConstantGlobalVariableAssignment, "Constant global variable assignment")
+* V(ConversionOverflow, "conversion overflow")
+* V(DivisionByZero, "division by zero")
+* V(ExpectedHeapNumber, "Expected heap number")
+* V(ExpectedSmi, "Expected smi")
+* V(ForcedDeoptToRuntime, "Forced deopt to runtime")
+* V(Hole, "hole")
+* V(InstanceMigrationFailed, "instance migration failed")
+* V(InsufficientTypeFeedbackForCall, "Insufficient type feedback for call")
+* V(InsufficientTypeFeedbackForCallWithArguments, "Insufficient type feedback for call with arguments")
+* V(InsufficientTypeFeedbackForConstruct, "Insufficient type feedback for construct")
+* V(FastPathFailed, "Falling off the fast path")
+* V(InsufficientTypeFeedbackForCombinedTypeOfBinaryOperation, "Insufficient type feedback for combined type of binary operation")
+* V(InsufficientTypeFeedbackForGenericNamedAccess, "Insufficient type feedback for generic named access")
+* V(InsufficientTypeFeedbackForGenericKeyedAccess, "Insufficient type feedback for generic keyed access")
+* V(InsufficientTypeFeedbackForLHSOfBinaryOperation, "Insufficient type feedback for LHS of binary operation")
+* V(InsufficientTypeFeedbackForRHSOfBinaryOperation, "Insufficient type feedback for RHS of binary operation")
+* V(KeyIsNegative, "key is negative")
+* V(LostPrecision, "lost precision")
+* V(LostPrecisionOrNaN, "lost precision or NaN")
+* V(MementoFound, "memento found")
+* V(MinusZero, "minus zero")
+* V(NaN, "NaN")
+* V(NegativeKeyEncountered, "Negative key encountered")
+* V(NegativeValue, "negative value")
+* V(NoCache, "no cache")
+* V(NotAHeapNumber, "not a heap number")
+* V(NotAHeapNumberUndefined, "not a heap number/undefined")
+* V(NotAJavaScriptObject, "not a JavaScript object")
+* V(NotANumberOrOddball, "not a Number or Oddball")
+* V(NotASmi, "not a Smi")
+* V(NotASymbol, "not a Symbol")
+* V(OutOfBounds, "out of bounds")
+* V(OutsideOfRange, "Outside of range")
+* V(Overflow, "overflow")
+* V(Proxy, "proxy")
+* V(ReceiverWasAGlobalObject, "receiver was a global object")
+* V(Smi, "Smi")
+* V(TooManyArguments, "too many arguments")
+* V(TracingElementsTransitions, "Tracing elements transitions")
+* V(TypeMismatchBetweenFeedbackAndConstant, "Type mismatch between feedback and constant")
+* V(UnexpectedCellContentsInConstantGlobalStore, "Unexpected cell contents in constant global store")
+* V(UnexpectedCellContentsInGlobalStore, "Unexpected cell contents in global store")
+* V(UnexpectedObject, "unexpected object")
+* V(UnexpectedRHSOfBinaryOperation, "Unexpected RHS of binary operation")
+* V(UnknownMapInPolymorphicAccess, "Unknown map in polymorphic access")
+* V(UnknownMapInPolymorphicCall, "Unknown map in polymorphic call")
+* V(UnknownMapInPolymorphicElementAccess, "Unknown map in polymorphic element access")
+* V(UnknownMap, "Unknown map")
+* V(ValueMismatch, "value mismatch")
+* V(WrongInstanceType, "wrong instance type")
+* V(WrongMap, "wrong map")
+* V(UndefinedOrNullInForIn, "null or undefined in for-in")
+* V(UndefinedOrNullInToObject, "null or undefined in ToObject")
+
